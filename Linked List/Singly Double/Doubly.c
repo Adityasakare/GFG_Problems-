@@ -161,6 +161,35 @@ void Display(PNODE Head)
 	printf("NULL\n");
 }
 
+void DeleteAtPos(PPNODE Head, int iPos)
+{
+	int iSize = Count(*Head);
+
+	if (iPos < 1 || iPos > iSize)
+	{
+		return;
+	}
+	if (iPos == 1)
+	{
+		DeleteFirst(Head);
+	}
+	else if (iPos == iSize)
+	{
+		DeleteLast(Head);
+	}
+	else
+	{
+		PNODE temp = *Head;
+
+		for (int i = 1; i < iPos - 1; i++)
+		{
+			temp = temp -> next;
+		}
+		temp -> next = temp -> next -> next;
+		free(temp -> next -> prev);
+		temp -> next -> prev = temp;
+	}
+}
 
 
 
@@ -218,7 +247,7 @@ int main()
 			case 6:
 				printf("Enter postion to be intert \n");
 				scanf("%d", &iPos);
-				//DeleteAtPos(&First, iPos);
+				DeleteAtPos(&First, iPos);
 				break;
 				
 			case 7:
